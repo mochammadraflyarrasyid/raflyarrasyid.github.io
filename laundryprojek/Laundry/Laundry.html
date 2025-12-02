@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Laundry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(52, 152, 219, 0.85), rgba(255, 255, 255, 0.9)), 
+                        url('mesincuci.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .tagline {
+            text-align: center;
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(41, 128, 185, 0.95);
+            padding: 12px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #3498db;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            min-height: calc(100vh - 200px);
+            padding: 40px 0;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            transition: transform 0.3s;
+            color: #333;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        h1 {
+            color: #2980b9;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            background-color: white;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .file-input {
+            padding: 10px;
+            background-color: rgba(248, 249, 250, 0.9);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, #2980b9, #1f618d);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #7f8c8d, #6c7b7d);
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(to right, #6c7b7d, #5d6b6d);
+        }
+        
+        /* Dashboard Styles */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-message {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .dashboard-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Services Section */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            color: #333;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 10px;
+            color: #2980b9;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .price-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            color: #333;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .price-card h3 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+            margin: 10px 0;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: rgba(44, 62, 80, 0.95);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #3498db;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+            
+            .dashboard-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 0;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-info, .contact-form {
+                width: 100%;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.8));
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Text Contrast Improvements */
+        .highlight-text {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        /* Contact Page Styles */
+        .contact-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+        
+        .contact-form {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .contact-details h3 {
+            color: #2980b9;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .contact-details p {
+            color: #555;
+        }
+        
+        .map-container {
+            margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .map-placeholder {
+            background: #f8f9fa;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .business-hours {
+            margin-top: 30px;
+        }
+        
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .hours-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .hours-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .hours-table .day {
+            font-weight: 600;
+            color: #2980b9;
+        }
+        
+        /* Admin Login Styles */
+        .admin-login-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .admin-login-btn:hover {
+            background: #34495e;
+        }
+        
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .login-form .btn {
+            margin-top: 10px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        /* Track Order Styles */
+        .track-order-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            margin-top: 20px;
+        }
+        
+        .order-status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            display: none;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .status-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .status-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .status-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .status-step.active .status-dot {
+            background: #3498db;
+        }
+        
+        .status-step.completed .status-dot {
+            background: #2ecc71;
+        }
+        
+        .status-label {
+            font-size: 12px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+        
+        .status-step.active .status-label,
+        .status-step.completed .status-label {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .order-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            width: 150px;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Login Button -->
+    <button class="admin-login-btn" id="admin-login-btn">
+        <i class="fas fa-user-shield"></i> Admin
+    </button>
+
+    <!-- Admin Login Modal -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-form">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h2>Login Admin</h2>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-username">Username</label>
+                    <input type="text" id="admin-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">Smart Laundry</div>
+            <div class="tagline">Laundry Cepat, Bersih, dan Terpercaya</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#" class="active" id="nav-home">Beranda</a></li>
+                <li><a href="#" id="nav-order">Pesan Laundry</a></li>
+                <li><a href="#" id="nav-pricing">Harga</a></li>
+                <li><a href="#" id="nav-about">Tentang Kami</a></li>
+                <li><a href="#" id="nav-contact">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Home Page -->
+            <div id="home-page" class="fade-in">
+                <!-- Hero Section -->
+                <div class="hero">
+                    <h1>Layanan Laundry Profesional</h1>
+                    <p>Kami memberikan layanan laundry terbaik dengan teknologi modern dan bahan pembersih berkualitas tinggi</p>
+                    <a href="#" class="action-btn" id="hero-order-btn">Pesan Sekarang</a>
+                </div>
+                
+                <div class="welcome-section">
+                    <h1 class="section-title">Selamat Datang di Smart Laundry</h1>
+                    <p class="welcome-message">Layanan laundry terbaik dengan harga terjangkau dan hasil maksimal</p>
+                    
+                    <div class="dashboard-actions">
+                        <a href="#" class="action-btn" id="new-order-btn">Buat Pesanan Baru</a>
+                        <a href="#" class="action-btn" id="track-order-btn">Lacak Pesanan</a>
+                    </div>
+                </div>
+                
+                <div class="highlight-text">
+                    <h2 style="text-align: center; color: #2980b9; margin-bottom: 20px;">Layanan Kami</h2>
+                    <div class="services">
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-tshirt"></i></div>
+                            <h3>Cuci Kering</h3>
+                            <p>Layanan cuci kering dengan detergent berkualitas</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-iron"></i></div>
+                            <h3>Cuci Setrika</h3>
+                            <p>Cuci bersih plus setrika rapi untuk penampilan maksimal</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-truck"></i></div>
+                            <h3>Antar Jemput</h3>
+                            <p>Gratis antar jemput untuk area tertentu</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                            <h3>Express</h3>
+                            <p>Layanan cepat selesai dalam 6 jam</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Form Page (Initially Hidden) -->
+            <div id="order-form-page" class="card fade-in" style="display: none;">
+                <h1>Smart Laundry</h1>
+                <h2>Form Pemesanan Laundry</h2>
+                <form id="order-form">
+                    <div class="form-group">
+                        <label for="customer-name">Nama Pelanggan</label>
+                        <input type="text" id="customer-name" name="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Nomor Telepon</label>
+                        <input type="tel" id="customer-phone" name="customer-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">Email</label>
+                        <input type="email" id="customer-email" name="customer-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="laundry-type">Jenis Laundry</label>
+                        <select id="laundry-type" name="laundry-type" required>
+                            <option value="">Pilih Jenis Laundry</option>
+                            <option value="cuci-kering">Cuci Kering</option>
+                            <option value="cuci-setrika">Cuci Setrika</option>
+                            <option value="setrika-saja">Setrika Saja</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Berat Cucian (Kg)</label>
+                        <input type="number" id="weight" name="weight" min="1" max="20" step="0.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Alamat Lengkap</label>
+                        <textarea id="address" name="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-method">Metode Pembayaran</label>
+                        <select id="payment-method" name="payment-method" required>
+                            <option value="">Pilih Metode Pembayaran</option>
+                            <option value="transfer-bank">Transfer Bank</option>
+                            <option value="cash">Cash</option>
+                            <option value="e-wallet">E-Wallet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Catatan Tambahan (opsional)</label>
+                        <textarea id="notes" name="notes"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Kirim Pesanan</button>
+                </form>
+                <button id="back-to-home" class="btn btn-secondary" style="margin-top: 15px;">Kembali ke Beranda</button>
+            </div>
+
+            <!-- Track Order Page (Initially Hidden) -->
+            <div id="track-order-page" class="card fade-in" style="display: none;">
+                <h1>Lacak Pesanan Laundry</h1>
+                <p style="text-align: center; margin-bottom: 20px;">Masukkan ID pesanan untuk melacak status pesanan Anda</p>
+                
+                <div class="form-group">
+                    <label for="order-id">ID Pesanan</label>
+                    <input type="text" id="order-id" placeholder="Masukkan ID pesanan Anda">
+                </div>
+                <button id="search-order" class="btn">Cari Pesanan</button>
+                
+                <div class="track-order-container" id="order-status-container" style="display: none;">
+                    <h2>Status Pesanan</h2>
+                    <div class="order-status" id="order-status">
+                        <div class="status-bar">
+                            <div class="status-step completed" id="step-1">
+                                <div class="status-dot"><i class="fas fa-check"></i></div>
+                                <div class="status-label">Diterima</div>
+                            </div>
+                            <div class="status-step active" id="step-2">
+                                <div class="status-dot"><i class="fas fa-tshirt"></i></div>
+                                <div class="status-label">Dicuci</div>
+                            </div>
+                            <div class="status-step" id="step-3">
+                                <div class="status-dot"><i class="fas fa-iron"></i></div>
+                                <div class="status-label">Disetrika</div>
+                            </div>
+                            <div class="status-step" id="step-4">
+                                <div class="status-dot"><i class="fas fa-check-double"></i></div>
+                                <div class="status-label">Selesai</div>
+                            </div>
+                            <div class="status-step" id="step-5">
+                                <div class="status-dot"><i class="fas fa-truck"></i></div>
+                                <div class="status-label">Diambil</div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-details" id="order-details">
+                            <!-- Order details will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="back-to-home-track" class="btn btn-secondary" style="margin-top: 15px;">Kembali ke Beranda</button>
+            </div>
+
+            <!-- Pricing Page (Initially Hidden) -->
+            <div id="pricing-page" class="fade-in" style="display: none;">
+                <div class="card">
+                    <h1>Daftar Harga Layanan</h1>
+                    <p class="welcome-message" style="color: #333; text-align: center; margin-bottom: 30px;">Harga terjangkau dengan kualitas terbaik</p>
+                    
+                    <div class="pricing-table">
+                        <div class="price-card">
+                            <h3>Cuci Kering</h3>
+                            <div class="price">Rp 7.000/kg</div>
+                            <p>Minimal 2 kg</p>
+                        </div>
+                        <div class="price-card">
+                            <h3>Cuci Setrika</h3>
+                            <div class="price">Rp 10.000/kg</div>
+                            <p>Minimal 2 kg</p>
+                        </div>
+                        <div class="price-card">
+                            <h3>Setrika Saja</h3>
+                            <div class="price">Rp 5.000/kg</div>
+                            <p>Minimal 3 kg</p>
+                        </div>
+                        <div class="price-card">
+                            <h3>Express</h3>
+                            <div class="price">+50%</div>
+                            <p>Tambahan biaya 50%</p>
+                        </div>
+                    </div>
+                    
+                    <button id="back-to-home-pricing" class="btn btn-secondary" style="margin-top: 20px;">Kembali ke Beranda</button>
+                </div>
+            </div>
+
+            <!-- About Page (Initially Hidden) -->
+            <div id="about-page" class="card fade-in" style="display: none;">
+                <h1>Tentang Smart Laundry</h1>
+                <p>Smart Laundry adalah penyedia jasa laundry profesional yang telah melayani pelanggan sejak 2018. Kami berkomitmen untuk memberikan layanan terbaik dengan menggunakan teknologi modern dan bahan pembersih berkualitas tinggi.</p>
+                
+                 <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>RAYHAN HANIF ALGHIFFARI</li>
+                    <li>MARSEL SAPUTRA</li>
+                    <li>MOCHAMMAD RAFLY ARRASYID</li>
+                    <li>PARKHAN MUHAMAD JUMARO</li>
+
+                <h2 style="text-align: left; margin-top: 20px;">Visi Kami</h2>
+                <p>Menjadi penyedia jasa laundry terdepan yang memberikan kepuasan maksimal kepada pelanggan dengan layanan yang cepat, bersih, dan terpercaya.</p>
+                
+                <h2 style="text-align: left; margin-top: 20px;">Misi Kami</h2>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Menyediakan layanan laundry berkualitas tinggi</li>
+                    <li>Menggunakan teknologi dan bahan terbaik</li>
+                    <li>Memberikan harga yang kompetitif</li>
+                    <li>Memastikan kepuasan pelanggan</li>
+                </ul>
+                
+                <button id="back-to-home-about" class="btn btn-secondary" style="margin-top: 20px;">Kembali ke Beranda</button>
+            </div>
+
+            <!-- Contact Page (Initially Hidden) -->
+            <div id="contact-page" class="fade-in" style="display: none;">
+                <div class="card">
+                    <h1>Hubungi Kami</h1>
+                    <p style="text-align: center; margin-bottom: 30px;">Kami siap membantu Anda dengan layanan laundry terbaik. Jangan ragu untuk menghubungi kami.</p>
+                    
+                    <div class="contact-container">
+                        <div class="contact-info">
+                            <h2 style="text-align: left;">Informasi Kontak</h2>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Alamat</h3>
+                                    <p>Jl. Laundry No. 123, Jakarta Pusat<br>DKI Jakarta, 10110</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Telepon</h3>
+                                    <p>+62 858-1411-2972</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Email</h3>
+                                    <p>info@smartlaundry.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Jam Operasional</h3>
+                                    <div class="business-hours">
+                                        <table class="hours-table">
+                                            <tr>
+                                                <td class="day">Senin - Jumat</td>
+                                                <td>08:00 - 20:00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="day">Sabtu</td>
+                                                <td>08:00 - 18:00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="day">Minggu</td>
+                                                <td>09:00 - 16:00</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="map-container">
+                                <div class="map-placeholder">
+                                    <p>Peta Lokasi Smart Laundry</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form">
+                            <h2 style="text-align: left;">Kirim Pesan</h2>
+                            <form id="contact-form">
+                                <div class="form-group">
+                                    <label for="contact-name">Nama Lengkap</label>
+                                    <input type="text" id="contact-name" name="contact-name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="contact-email">Email</label>
+                                    <input type="email" id="contact-email" name="contact-email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="contact-subject">Subjek</label>
+                                    <input type="text" id="contact-subject" name="contact-subject" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="contact-message">Pesan</label>
+                                    <textarea id="contact-message" name="contact-message" rows="5" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn">Kirim Pesan</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <button id="back-to-home-contact" class="btn btn-secondary" style="margin-top: 20px;">Kembali ke Beranda</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">Smart Laundry</div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Beranda</a>
+                    <a href="#">Layanan</a>
+                    <a href="#">Tentang Kami</a>
+                    <a href="#">Kontak</a>
+                    <a href="#">Syarat & Ketentuan</a>
+                </div>
+                <p>&copy; 2025 Smart Laundry | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Storage - Simpan data di localStorage
+        function initializeData() {
+            if (!localStorage.getItem('smartLaundryOrders')) {
+                localStorage.setItem('smartLaundryOrders', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('smartLaundryServices')) {
+                localStorage.setItem('smartLaundryServices', JSON.stringify([
+                    { id: 1, name: 'Cuci Kering', price: 7000, minWeight: 2, description: 'Layanan cuci kering dengan detergent berkualitas' },
+                    { id: 2, name: 'Cuci Setrika', price: 10000, minWeight: 2, description: 'Cuci bersih plus setrika rapi untuk penampilan maksimal' },
+                    { id: 3, name: 'Setrika Saja', price: 5000, minWeight: 3, description: 'Layanan setrika saja untuk pakaian yang sudah dicuci' },
+                    { id: 4, name: 'Express', price: 0.5, minWeight: 0, description: 'Layanan cepat selesai dalam 6 jam (tambahan biaya 50%)' }
+                ]));
+            }
+            if (!localStorage.getItem('smartLaundryCustomers')) {
+                localStorage.setItem('smartLaundryCustomers', JSON.stringify([]));
+            }
+        }
+
+        // DOM Elements
+        const homePage = document.getElementById('home-page');
+        const orderFormPage = document.getElementById('order-form-page');
+        const trackOrderPage = document.getElementById('track-order-page');
+        const pricingPage = document.getElementById('pricing-page');
+        const aboutPage = document.getElementById('about-page');
+        const contactPage = document.getElementById('contact-page');
+        const orderForm = document.getElementById('order-form');
+        const contactForm = document.getElementById('contact-form');
+        const newOrderBtn = document.getElementById('new-order-btn');
+        const trackOrderBtn = document.getElementById('track-order-btn');
+        const heroOrderBtn = document.getElementById('hero-order-btn');
+        const backToHomeBtn = document.getElementById('back-to-home');
+        const backToHomeTrackBtn = document.getElementById('back-to-home-track');
+        const backToHomePricingBtn = document.getElementById('back-to-home-pricing');
+        const backToHomeAboutBtn = document.getElementById('back-to-home-about');
+        const backToHomeContactBtn = document.getElementById('back-to-home-contact');
+        const searchOrderBtn = document.getElementById('search-order');
+        const orderIdInput = document.getElementById('order-id');
+        const orderStatusContainer = document.getElementById('order-status-container');
+        const orderStatus = document.getElementById('order-status');
+        const orderDetails = document.getElementById('order-details');
+        
+        // Navigation Elements
+        const navHome = document.getElementById('nav-home');
+        const navOrder = document.getElementById('nav-order');
+        const navPricing = document.getElementById('nav-pricing');
+        const navAbout = document.getElementById('nav-about');
+        const navContact = document.getElementById('nav-contact');
+
+        // Admin Elements
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const closeModal = document.getElementById('close-modal');
+        const adminLoginForm = document.getElementById('admin-login-form');
+
+        // Initialize data
+        initializeData();
+
+        // Generate Order ID
+        function generateOrderId() {
+            return 'LAUNDRY-' + Date.now().toString().substring(5) + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+        }
+
+        // Calculate Total Price
+        function calculateTotal(laundryType, weight) {
+            const prices = {
+                'cuci-kering': 7000,
+                'cuci-setrika': 10000,
+                'setrika-saja': 5000
+            };
+            
+            return prices[laundryType] * weight;
+        }
+
+        // Show Order Form
+        function showOrderForm() {
+            homePage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            pricingPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            trackOrderPage.style.display = 'none';
+            orderFormPage.style.display = 'block';
+            
+            // Update active nav
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            navOrder.classList.add('active');
+        }
+
+        // Show Track Order Page
+        function showTrackOrderPage() {
+            homePage.style.display = 'none';
+            orderFormPage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            pricingPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            trackOrderPage.style.display = 'block';
+            
+            // Update active nav
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            navHome.classList.add('active');
+            
+            // Reset order status display
+            orderStatusContainer.style.display = 'none';
+            orderStatus.style.display = 'none';
+        }
+
+        // Show Home Page
+        function showHomePage() {
+            orderFormPage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            pricingPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            trackOrderPage.style.display = 'none';
+            homePage.style.display = 'block';
+            
+            // Update active nav
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            navHome.classList.add('active');
+        }
+
+        // Show Pricing Page
+        function showPricingPage() {
+            homePage.style.display = 'none';
+            orderFormPage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            trackOrderPage.style.display = 'none';
+            pricingPage.style.display = 'block';
+            
+            // Update active nav
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            navPricing.classList.add('active');
+        }
+
+        // Show About Page
+        function showAboutPage() {
+            homePage.style.display = 'none';
+            orderFormPage.style.display = 'none';
+            pricingPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            trackOrderPage.style.display = 'none';
+            aboutPage.style.display = 'block';
+            
+            // Update active nav
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            navAbout.classList.add('active');
+        }
+
+        // Show Contact Page
+        function showContactPage() {
+            homePage.style.display = 'none';
+            orderFormPage.style.display = 'none';
+            pricingPage.style.display = 'none';
+            aboutPage.style.display = 'none';
+            trackOrderPage.style.display = 'none';
+            contactPage.style.display = 'block';
+            
+            // Update active nav
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            navContact.classList.add('active');
+        }
+
+        // Update Order Status Display
+        function updateOrderStatusDisplay(order) {
+            // Reset all status steps
+            for (let i = 1; i <= 5; i++) {
+                const step = document.getElementById(`step-${i}`);
+                step.classList.remove('active', 'completed');
+            }
+            
+            // Update status based on order status
+            const statusSteps = {
+                'Menunggu': 1,
+                'Diproses': 2,
+                'Disetrika': 3,
+                'Selesai': 4,
+                'Diambil': 5
+            };
+            
+            const currentStep = statusSteps[order.status];
+            
+            // Set completed steps
+            for (let i = 1; i < currentStep; i++) {
+                document.getElementById(`step-${i}`).classList.add('completed');
+            }
+            
+            // Set active step
+            if (currentStep <= 5) {
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+            }
+            
+            // Update order details
+            const laundryTypeNames = {
+                'cuci-kering': 'Cuci Kering',
+                'cuci-setrika': 'Cuci Setrika',
+                'setrika-saja': 'Setrika Saja'
+            };
+            
+            orderDetails.innerHTML = `
+                <div class="detail-row">
+                    <div class="detail-label">ID Pesanan</div>
+                    <div class="detail-value">${order.id}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Nama Pelanggan</div>
+                    <div class="detail-value">${order.customerName}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Jenis Layanan</div>
+                    <div class="detail-value">${laundryTypeNames[order.laundryType]}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Berat</div>
+                    <div class="detail-value">${order.weight} kg</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Total Biaya</div>
+                    <div class="detail-value">Rp ${order.totalPrice.toLocaleString('id-ID')}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Tanggal Pesanan</div>
+                    <div class="detail-value">${order.date}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value"><strong>${order.status}</strong></div>
+                </div>
+            `;
+            
+            orderStatusContainer.style.display = 'block';
+            orderStatus.style.display = 'block';
+        }
+
+        // Event Listeners
+        newOrderBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showOrderForm();
+        });
+
+        trackOrderBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showTrackOrderPage();
+        });
+
+        heroOrderBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showOrderForm();
+        });
+
+        backToHomeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        backToHomeTrackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        backToHomePricingBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        backToHomeAboutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        backToHomeContactBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        // Navigation Event Listeners
+        navHome.addEventListener('click', function(e) {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        navOrder.addEventListener('click', function(e) {
+            e.preventDefault();
+            showOrderForm();
+        });
+
+        navPricing.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPricingPage();
+        });
+
+        navAbout.addEventListener('click', function(e) {
+            e.preventDefault();
+            showAboutPage();
+        });
+
+        navContact.addEventListener('click', function(e) {
+            e.preventDefault();
+            showContactPage();
+        });
+
+        // Handle Order Form Submission
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const customerName = document.getElementById('customer-name').value;
+            const customerPhone = document.getElementById('customer-phone').value;
+            const customerEmail = document.getElementById('customer-email').value;
+            const laundryType = document.getElementById('laundry-type').value;
+            const weight = document.getElementById('weight').value;
+            const address = document.getElementById('address').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+            const notes = document.getElementById('notes').value;
+            
+            // Generate order ID and calculate total
+            const orderId = generateOrderId();
+            const totalPrice = calculateTotal(laundryType, weight);
+            
+            // Create order object
+            const order = {
+                id: orderId,
+                customerName,
+                customerPhone,
+                customerEmail,
+                laundryType,
+                weight: parseFloat(weight),
+                address,
+                paymentMethod,
+                notes,
+                totalPrice,
+                status: 'Menunggu',
+                date: new Date().toLocaleDateString('id-ID'),
+                timestamp: new Date().getTime()
+            };
+            
+            // Save to localStorage
+            saveOrder(order);
+            
+            // Show success message
+            alert(`Terima kasih ${customerName}! Pesanan laundry ${laundryType} dengan berat ${weight} kg berhasil dikirim. ID Pesanan Anda: ${orderId}. Total biaya: Rp ${totalPrice.toLocaleString('id-ID')}`);
+            
+            // Reset form and go back to home
+            orderForm.reset();
+            showHomePage();
+        });
+
+        // Save order to localStorage
+        function saveOrder(order) {
+            const orders = JSON.parse(localStorage.getItem('smartLaundryOrders')) || [];
+            orders.push(order);
+            localStorage.setItem('smartLaundryOrders', JSON.stringify(orders));
+        }
+
+        // Search Order
+        searchOrderBtn.addEventListener('click', function() {
+            const orderId = orderIdInput.value.trim();
+            
+            if (!orderId) {
+                alert('Masukkan ID pesanan terlebih dahulu');
+                return;
+            }
+            
+            const orders = JSON.parse(localStorage.getItem('smartLaundryOrders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            
+            if (order) {
+                updateOrderStatusDisplay(order);
+            } else {
+                alert('Pesanan tidak ditemukan. Pastikan ID pesanan benar.');
+            }
+        });
+
+        // Handle Contact Form Submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const contactName = document.getElementById('contact-name').value;
+            const contactSubject = document.getElementById('contact-subject').value;
+            
+            // Show success message
+            alert(`Terima kasih ${contactName}! Pesan Anda dengan subjek "${contactSubject}" telah berhasil dikirim. Kami akan merespons dalam waktu 24 jam.`);
+            
+            // Reset form and go back to home
+            contactForm.reset();
+            showHomePage();
+        });
+
+        // Admin Login Functionality
+        adminLoginBtn.addEventListener('click', function() {
+            loginModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+
+        // Admin Login Form Submission
+        adminLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+    
+        // Simple authentication
+            if (username === 'admin' && password === 'admin123') {
+            // Set flag bahwa admin sudah login
+            localStorage.setItem('smartLaundryAdminLoggedIn', 'true');
+            // Redirect to admin page
+            window.location.href = 'admin.html';
+        } else {
+            alert('Username atau password salah!');
+        }
+    });
+
+        // Initialize page
+        showHomePage();
+    </script>
+</body>
+</html>
